@@ -196,6 +196,7 @@ public class SlimCommandRunningClient implements SlimClient {
 
   protected void writeString(String string) throws IOException {
     String packet = String.format("%06d:%s", string.getBytes("UTF-8").length, string);
+    System.out.println(packet);
     writer.write(packet);
     writer.flush();
   }

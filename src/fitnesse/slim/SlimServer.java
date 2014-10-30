@@ -110,6 +110,7 @@ public class SlimServer implements SocketServer {
   private void sendResultsToClient(List<Object> results) throws IOException {
     String resultString = SlimSerializer.serialize(results);
     writer.write(String.format("%06d:%s", resultString.getBytes("UTF-8").length, resultString));
+    System.out.println(resultString);
     writer.flush();
   }
 

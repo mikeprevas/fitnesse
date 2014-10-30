@@ -14,6 +14,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 public class SlimClientBuilder extends ClientBuilder<SlimCommandRunningClient> {
   public static final String SLIM_PORT = "SLIM_PORT";
+  public static final String SLIM_POOL_SIZE = "SLIM_POOL_SIZE";
   public static final String SLIM_HOST = "SLIM_HOST";
   public static final String SLIM_FLAGS = "SLIM_FLAGS";
   private static final String SLIM_VERSION = "SLIM_VERSION";
@@ -74,6 +75,7 @@ public class SlimClientBuilder extends ClientBuilder<SlimCommandRunningClient> {
   }
 
   public int getSlimPort() {
+    System.out.println("slimPort "+slimPort);
     return slimPort;
   }
 
@@ -117,23 +119,31 @@ public class SlimClientBuilder extends ClientBuilder<SlimCommandRunningClient> {
       }
 
       if (port != null) {
+        System.out.println("baseport "+port);
         return Integer.parseInt(port);
       }
     } catch (NumberFormatException e) {
       // stick with default
     }
+    System.out.println("baseport default to 8085");
     return 8085;
   }
 
   private int getSlimPortPoolSize() {
     try {
       String poolSize = getVariable("slim.pool.size");
+      if (poolSize == null)
+      {
+          poolSize = getVariable(SLIM_POOL_SIZE);
+      }
+
       if (poolSize != null) {
         return Integer.parseInt(poolSize);
       }
     } catch (NumberFormatException e) {
       // stick with default
     }
+    System.out.println("poolsize default to 10");
     return 10;
   }
 
